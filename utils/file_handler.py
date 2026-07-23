@@ -1,6 +1,8 @@
 import os
 import hashlib
 from utils.logger_handler import logger
+from langchain_core.documents import Document
+from langchain_community.document_loaders import pyPDFLoader, TextLoader
 
 def get_file_md5(filepath: str):  #获取文件的MD5的十六进制字符串
 
@@ -45,4 +47,14 @@ def listed_with_allowed_type(path: str, allowed_types: tuple[str]):  #返回文�
             files.append(os.path.join(path, f))  #返回所检查的文件的绝对路径
 
     return tuple(files)
+
+
+def pdf_loader(filepath: str, passwd=None) -> list[Document]:
+    return pyPDFLoader(filepath, passwd).load()
+
+
+def text_loader(filepath: str) -> list[Document]:
+    return TextLoader(filepath).load()
+
+
 
