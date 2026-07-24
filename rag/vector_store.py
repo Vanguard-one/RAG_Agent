@@ -63,13 +63,13 @@ class VectorStoreService:
 
             return []
 
-        #获取data包中可获取的文件（txt,pdf），返回列表，里面存的是文件地址
+        #获取data包中可获取的文件（txt,pdf），返回列表，里面存的是文件地址 eg: [文件1地址，文件2地址，文件3地址，...]
         allowed_file_path: list[str] = listed_with_allowed_type(
             get_abs_path(chroma_conf["data_path"]), #data绝对路径
             tuple(chroma_conf["allow_knowledge_file_type"]),  #可获取的类型
         )
 
-        for path in allowed_file_path:
+        for path in allowed_file_path: #将里面的文件地址通过for循环依次取出处理
             #获取文件的MD5
             md5_hex = get_file_md5(path)
 
@@ -78,12 +78,12 @@ class VectorStoreService:
                 continue
 
             try:
-                documents: list[Document] = get_file_document(path)
+                documents: list[Document] = get_file_document(path)  #加载文本内容
 
                 if not documents:
                     logger.warning(f"[加载知识库]{path}内没有有效文本内容，跳过")
 
-                split_document: list[Document] =  self.spliter.split_documents(documents)
+                split_document: list[Document] =  self.spliter.split_documents(documents)  #对文本内容进行分片
 
                 if not split_document:
                     logger.warning(f"[加载知识库]{path}分片后没有有效文本内容，跳过")
