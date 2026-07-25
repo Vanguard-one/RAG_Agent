@@ -15,7 +15,7 @@ class VectorStoreService:
         self.vector_store = Chroma(
             collection_name=chroma_conf["collection_name"],#表名
             embedding_function=embed_model, #嵌入模型
-            persist_directory=chroma_conf["persist_directory"],#存储库
+            persist_directory=get_abs_path(chroma_conf["persist_directory"]),#存储库
         )
 
         self.spliter = RecursiveCharacterTextSplitter(
