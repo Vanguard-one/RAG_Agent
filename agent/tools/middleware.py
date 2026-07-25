@@ -40,9 +40,9 @@ def log_before_model(
         state: AgentState,        # 整个Agent智能体中的状态记录
         runtime: Runtime,         # 记录了整个执行过程中的上下文信息
 ):        # 在模型执行前输出日志
-    logger.info(f"[log_before_model]即将调用模型，带有{len(state['message'])}条消息。")
+    logger.info(f"[log_before_model]即将调用模型，带有{len(state['messages'])}条消息。")
 
-    logger.debug(f"[log_beforre_model]{type(state['messages'][-1]).__name__} | {state['messages'][-1].content.strip()}")
+    logger.debug(f"[log_before_model]{type(state['messages'][-1]).__name__} | {state['messages'][-1].content.strip()}")
 
     return None
 
